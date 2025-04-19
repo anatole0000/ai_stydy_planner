@@ -1,0 +1,30 @@
+{% extends 'planner/base.html' %}
+
+{% block title %}Study Analytics - AI Study Planner{% endblock %}
+
+{% block content %}
+<h1>Study Analytics for {{ user.username }}</h1>
+
+<!-- Study Time Progress -->
+<h2>Study Time Progress</h2>
+<p>Total Study Time: {{ total_study_time }} minutes</p>
+<p>Goal: {{ study_goal }} minutes</p>
+
+<!-- Progress Bar -->
+<div style="width: 100%; background-color: #f3f3f3; border-radius: 10px;">
+    <div style="height: 30px; width: {{ progress_percentage }}%; background-color: #4CAF50; border-radius: 10px;"></div>
+</div>
+<p>{{ total_study_time }} out of {{ study_goal }} minutes completed</p>
+
+<!-- Study Sessions -->
+<h2>Your Study Sessions</h2>
+<ul>
+    {% for schedule in study_sessions %}
+        <li>{{ schedule.topic }} on {{ schedule.date|date:"F j, Y" }} - {{ schedule.study_time }} mins</li>
+    {% empty %}
+        <li>No study sessions found.</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'dashboard' %}">Back to Dashboard</a>
+{% endblock %}

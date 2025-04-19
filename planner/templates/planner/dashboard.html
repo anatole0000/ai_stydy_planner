@@ -1,0 +1,56 @@
+{% extends 'planner/base.html' %}
+
+{% block title %}Dashboard - AI Study Planner{% endblock %}
+
+{% block content %}
+<h1>Welcome, {{ user.username }}!</h1>
+
+<!-- Display Total Study Time and Goal -->
+<h2>Study Time Progress</h2>
+<p>Total Study Time: {{ total_study_time }} minutes</p>
+<p>Goal: {{ study_goal }} minutes</p>
+
+<!-- Progress Bar -->
+<div style="width: 100%; background-color: #f3f3f3; border-radius: 10px;">
+    <div style="height: 30px; width: {{ progress_percentage }}%; background-color: #4CAF50; border-radius: 10px;"></div>
+</div>
+<p>{{ total_study_time }} out of {{ study_goal }} minutes completed</p>
+
+<!-- ✅ NEW: Today’s Schedule -->
+<h2>Today’s Schedule ({{ today_schedule.count }})</h2>
+<ul>
+    {% for schedule in today_schedule %}
+        <li>{{ schedule.topic }} - {{ schedule.estimated_time }} mins</li>
+    {% empty %}
+        <li>No sessions planned for today.</li>
+    {% endfor %}
+</ul>
+
+<h2>Your Study Schedule</h2>
+<ul>
+    {% for schedule in user_schedule %}
+        <li>
+            {{ schedule.topic }} on {{ schedule.date|date:"F j, Y" }} - {{ schedule.estimated_time }} mins
+        </li>
+    {% empty %}
+        <li>You don't have any scheduled study sessions yet.</li>
+    {% endfor %}
+</ul>
+
+<h2>AI Recommendations</h2>
+<p>Suggested Topic: {{ recommendations }}</p>
+<ul>
+    {% for topic in recommendations %}
+        <li>{{ topic }}</li>
+    {% empty %}
+        <li>No recommendations available.</li>
+    {% endfor %}
+</ul>
+
+<h3>Study Recommendation</h3>
+<p>{{ suggestion }}</p>
+
+<a href="{% url 'create_schedule' %}">Create a new schedule</a> |
+<a href="{% url 'profile' %}">Go to Profile</a> |
+<a href="{% url 'logout' %}">Logout</a>
+{% endblock %}

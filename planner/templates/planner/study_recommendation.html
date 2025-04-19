@@ -1,0 +1,11 @@
+{% extends 'planner/base.html' %}
+
+{% block title %}Study Time Recommendation{% endblock %}
+
+{% block content %}
+<h1>Recommended Study Time</h1>
+
+<p>Based on your past study sessions, we recommend you study for {{ recommended_time }} minutes for your next topic.</p>
+
+<a href="{% url 'dashboard' %}">Back to Dashboard</a>
+{% endblock %}

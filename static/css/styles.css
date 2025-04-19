@@ -1,0 +1,86 @@
+/* Basic Styles for Dashboard */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fc;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #2a9df4;
+}
+
+h3 {
+    color: #2a9df4;
+    font-size: 1.1em;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+a {
+    color: #2a9df4;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.dashboard-header h1 {
+    font-size: 2em;
+}
+
+.study-schedule, .ai-recommendations {
+    margin-top: 40px;
+}
+
+.study-schedule h2, .ai-recommendations h2 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: #444;
+}
+
+.study-schedule ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .study-schedule ul {
+        grid-template-columns: 1fr;
+    }
+}

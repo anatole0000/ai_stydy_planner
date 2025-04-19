@@ -1,0 +1,79 @@
+{% extends 'planner/base.html' %}
+
+{% block title %}Profile - AI Study Planner{% endblock %}
+
+{% block content %}
+<h1>{{ user.username }}'s Profile</h1>
+
+<p>Email: {{ user.email }}</p>
+<p>Username: {{ user.username }}</p>
+
+<!-- Profile Picture and Bio Section -->
+<h2>Profile Information</h2>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="bio">Bio</label>
+    <textarea name="bio" id="bio">{{ profile.bio }}</textarea><br>
+    
+    <label for="profile_picture">Profile Picture</label>
+    <input type="file" name="profile_picture" id="profile_picture"><br>
+    
+    <button type="submit">Update Profile</button>
+</form>
+
+<h3>Profile Picture</h3>
+{% if profile.profile_picture %}
+    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" width="100">
+{% else %}
+    <p>No profile picture set</p>
+{% endif %}
+
+<!-- Display Study Progress -->
+<h2>Your Study Progress</h2>
+<ul>
+    {% for progress in user.studyprogress_set.all %}
+        <li>Topic: {{ progress.topic.name }} - Completed: {{ progress.completed }}%</li>
+    {% empty %}
+        <li>No study progress yet.</li>
+    {% endfor %}
+</ul>
+
+<!-- Friendship / Following Section -->
+<h2>Friends</h2>
+<ul>
+    {% for friendship in profile.user.friend.all %}
+        <li>
+            {{ friendship.friend.username }}
+            <a href="{% url 'unfollow_user' friendship.friend.id %}">Unfollow</a>
+        </li>
+    {% endfor %}
+</ul>
+
+<h2>Users to Follow</h2>
+<ul>
+    {% for user in all_users %}
+        {% if user != request.user %}
+            <li>
+                {{ user.username }}
+                <a href="{% url 'follow_user' user.id %}">Follow</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+<!-- AI Recommendations Section -->
+<h2>AI Recommendations</h2>
+<p>Suggested Topic: {{ recommendations.name }}</p>
+
+<h2>Activity Feed</h2>
+<ul>
+    {% for activity in user.activityfeed_set.all %}
+        <li>{{ activity.timestamp|date:"F j, Y, g:i a" }} - {{ activity.action }}</li>
+    {% empty %}
+        <li>No activities yet.</li>
+    {% endfor %}
+</ul>
+
+
+<a href="{% url 'dashboard' %}">Back to Dashboard</a>
+{% endblock %}

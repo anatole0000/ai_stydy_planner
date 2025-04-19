@@ -1,0 +1,22 @@
+{% extends 'planner/base.html' %}
+
+{% block title %}Create Schedule{% endblock %}
+
+{% block content %}
+<h1>Create a New Study Schedule</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="topic">Topic:</label>
+    <input type="text" name="topic" required><br><br>
+
+    <label for="date">Date:</label>
+    <input type="date" name="date" required><br><br>
+
+    <label for="estimated_time">Estimated Time (minutes):</label>
+    <input type="number" name="estimated_time" required><br><br>
+
+    <button type="submit">Create Schedule</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to AI Study Planner</title>
+</head>
+<body>
+    <h1>Welcome to AI Study Planner!</h1>
+    {% if user.is_authenticated %}
+        <p>You are logged in as {{ user.username }}.</p>
+        <a href="{% url 'dashboard' %}">Go to Dashboard</a>
+    {% else %}
+        <p>Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register</a> to get started.</p>
+    {% endif %}
+</body>
+</html>
